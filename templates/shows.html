@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Shows</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{{ url_for('static', filename='pk2.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            text-shadow: 1px 1px 3px black;
+            height: 100vh;
+            width: 100vw;
+        }
+        table {
+            margin: 50px auto;
+            border-collapse: collapse;
+            width: 70%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid white;
+        }
+        th {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+<!--    <p>Static file path: {{ url_for('static', filename='SHIVA.jpeg') }}</p>-->
+    <h1 style="text-align: center;">Available Screens</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Screen Name</th>
+                <th>Capacity</th>
+                <th>Price ($)</th>
+                <th>Booking</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for show in shows %}
+            <tr>
+                <td>{{ show['ID'] }}</td>
+                <td>{{ show['SCREEN_NAME'] }}</td>
+                <td>{{ show['CAPACITY'] }}</td>
+                <td>{{ show['PRICE'] }}</td>
+                <td>
+                    <form action="/book" method="POST">
+                        <input type="hidden" name="show_id" value="{{ show['ID']}}">
+                        <button type="submit">Book Now</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
